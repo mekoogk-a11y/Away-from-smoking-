@@ -1,0 +1,6 @@
+{
+  "name": "كيف تترك التدخين | Quit Smoking",
+  "description": "تطبيق عالمي احترافي للتوعية بمخاطر التدخين ومساعدة المستخدمين على الإقلاع عنه مع أدوات التغلب على الرغبة وحساب التوفير والصحة.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
