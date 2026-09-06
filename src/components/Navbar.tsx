@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Language } from '../types';
 import { translations, languagesConfig } from '../data/translations';
 import { AppLogo } from './AppLogo';
+import { PWAInstallButton } from './PWAInstallButton';
 import { 
   Home, 
   Camera, 
@@ -94,9 +95,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Right Action: SOS Need Help Now + 5-Language Switcher */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Right Action: PWA Install + SOS Need Help Now + 5-Language Switcher */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             
+            {/* PWA Install Button: 📱 ثبّت التطبيق or ✓ التطبيق مثبت على جهازك */}
+            <PWAInstallButton lang={lang} variant="navbar" />
+
             {/* Urgent "أحتاج مساعدة الآن" Button */}
             <button
               onClick={onOpenNeedHelpNow}

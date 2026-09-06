@@ -4,6 +4,7 @@ import { translations } from '../data/translations';
 import { motivationalQuotes } from '../data/quotes';
 import { CURRENCIES, calculateStats } from '../utils/storage';
 import { MedicalDisclaimerBanner } from './MedicalDisclaimerBanner';
+import { PWAInstallButton } from './PWAInstallButton';
 import { 
   Clock, 
   Coins, 
@@ -93,6 +94,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
               ? 'مرحباً بك في منصتك الطبية العالمية لإنهاء إدمان التبغ، استعادة صحة الرئتين والقلب، توفير أموالك، والتواصل مع خطوط المساعدة الرسمية والمراكز المعتمدة.'
               : 'Welcome to your global clinical platform to end nicotine addiction, regenerate vital organs, save money, and connect with accredited national helplines and specialists.'}
           </p>
+
+          {/* Prominent PWA Install Action in Hero */}
+          <div className="mb-6 flex flex-wrap items-center gap-3">
+            <PWAInstallButton lang={lang} variant="hero" />
+          </div>
 
           {/* Primary Quick Access Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -202,6 +208,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </div>
         </div>
       </section>
+
+      {/* PWA App Install Banner */}
+      <PWAInstallButton lang={lang} variant="banner" />
 
       {/* Live Smoke-Free Stats & Money Saved Counter */}
       <section className="bg-white rounded-3xl p-5 sm:p-7 shadow-lg border border-orange-100">

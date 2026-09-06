@@ -29,6 +29,8 @@ import { LegalViews } from './components/LegalViews';
 import { NeedHelpModal } from './components/NeedHelpModal';
 import { ProfileModal } from './components/ProfileModal';
 import { Footer } from './components/Footer';
+import { PWASplashScreen } from './components/PWASplashScreen';
+import { OfflineIndicator } from './components/OfflineIndicator';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('ar');
@@ -266,6 +268,12 @@ export default function App() {
         onSelectTab={navigateTo}
         onToggleLanguage={handleToggleLanguage}
       />
+
+      {/* Professional PWA Splash Screen */}
+      <PWASplashScreen lang={lang} />
+
+      {/* Offline Status Connectivity Banner */}
+      <OfflineIndicator lang={lang} />
 
     </div>
   );

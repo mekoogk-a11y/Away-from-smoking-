@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="50%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+
+    <!-- Flame / Glow Gradient -->
+    <radialGradient id="emberGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="40%" stop-color="#f97316"/>
+      <stop offset="80%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#991b1b" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Cigarette Body Filter Gradient -->
+    <linearGradient id="filterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+
+    <!-- Paper Gradient -->
+    <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="70%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+
+    <!-- Drop Shadow for Red X -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#450a0a" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Inner Ring Highlight -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#ffffff" stroke-width="4" stroke-opacity="0.2"/>
+
+  <!-- Center Content Group (Centered & Safe-zoned for both Any & Maskable) -->
+  <g id="app-graphics">
+    
+    <!-- Cigarette Element (Rotated -30 deg) -->
+    <g transform="rotate(-30 256 256)">
+      <!-- Smoke effect at tip -->
+      <path d="M 125 240 C 105 210, 115 180, 85 160 C 105 170, 95 195, 120 220 Z" fill="#ffffff" fill-opacity="0.35"/>
+      <path d="M 135 235 C 115 195, 130 165, 110 135 C 125 155, 120 185, 130 215 Z" fill="#ffffff" fill-opacity="0.25"/>
+
+      <!-- Cigarette Paper Body -->
+      <rect x="135" y="226" width="200" height="60" rx="10" fill="url(#paperGrad)" stroke="#cbd5e1" stroke-width="3"/>
+      
+      <!-- Filter Tip -->
+      <rect x="335" y="226" width="75" height="60" rx="8" fill="url(#filterGrad)" stroke="#92400e" stroke-width="2"/>
+      <line x1="335" y1="226" x2="335" y2="286" stroke="#78350f" stroke-width="4"/>
+      
+      <!-- Filter Cork Texture Dots -->
+      <circle cx="355" cy="242" r="2.5" fill="#78350f" opacity="0.6"/>
+      <circle cx="375" cy="248" r="2.5" fill="#78350f" opacity="0.6"/>
+      <circle cx="390" cy="240" r="2.5" fill="#78350f" opacity="0.6"/>
+      <circle cx="360" cy="268" r="2.5" fill="#78350f" opacity="0.6"/>
+      <circle cx="380" cy="265" r="2.5" fill="#78350f" opacity="0.6"/>
+      <circle cx="395" cy="272" r="2.5" fill="#78350f" opacity="0.6"/>
+
+      <!-- Burning Tip / Ember -->
+      <!-- Ash (Grey) -->
+      <rect x="118" y="230" width="18" height="52" rx="6" fill="#475569"/>
+      <!-- Glowing Ember -->
+      <rect x="126" y="234" width="12" height="44" rx="4" fill="#ef4444"/>
+      <circle cx="120" cy="256" r="30" fill="url(#emberGlow)"/>
+
+      <!-- Little burning sparks 🔥 -->
+      <circle cx="108" cy="235" r="3.5" fill="#fbbf24"/>
+      <circle cx="98" cy="260" r="4.5" fill="#f97316"/>
+      <circle cx="112" cy="275" r="3" fill="#f87171"/>
+    </g>
+
+    <!-- Prominent Red Prohibition Circle / Shield Halo -->
+    <circle cx="256" cy="256" r="185" fill="none" stroke="#dc2626" stroke-width="28" filter="url(#shadow)"/>
+    <circle cx="256" cy="256" r="185" fill="none" stroke="#ffffff" stroke-width="5" stroke-opacity="0.4"/>
+
+    <!-- BIG BOLD RED X MARK (🚫 No Smoking / Stop Smoking) -->
+    <!-- White outline backdrop for crisp high contrast on any background -->
+    <line x1="125" y1="125" x2="387" y2="387" stroke="#ffffff" stroke-width="48" stroke-linecap="round"/>
+    <line x1="387" y1="125" x2="125" y2="387" stroke="#ffffff" stroke-width="48" stroke-linecap="round"/>
+    
+    <!-- Primary Bold Red X Stroke -->
+    <line x1="125" y1="125" x2="387" y2="387" stroke="#dc2626" stroke-width="36" stroke-linecap="round" filter="url(#shadow)"/>
+    <line x1="387" y1="125" x2="125" y2="387" stroke="#dc2626" stroke-width="36" stroke-linecap="round" filter="url(#shadow)"/>
+
+    <!-- Subtle Center Shine on Red X -->
+    <line x1="135" y1="135" x2="377" y2="377" stroke="#fca5a5" stroke-width="8" stroke-linecap="round" stroke-opacity="0.6"/>
+    <line x1="377" y1="135" x2="135" y2="377" stroke="#fca5a5" stroke-width="8" stroke-linecap="round" stroke-opacity="0.6"/>
+  </g>
+</svg>
