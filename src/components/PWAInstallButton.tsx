@@ -27,44 +27,25 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
 
   const [showModal, setShowModal] = useState(false);
 
-  // Localization labels
+  // Localization labels - strictly focused on "تثبيت على الجهاز"
   const getInstallLabel = () => {
     switch (lang) {
       case 'ar':
-        return '📱 ثبّت التطبيق';
+        return '📱 تثبيت على الجهاز';
       case 'en':
-        return '📱 Install App';
+        return '📱 Install on Device';
       case 'fr':
-        return '📱 Installer l\'app';
+        return '📱 Installer sur l\'appareil';
       case 'ha':
-        return '📱 Sanya Manhajar';
+        return '📱 Sanya a Na\'ura';
       case 'zh':
-        return '📱 安装应用';
+        return '📱 安装到设备';
       default:
-        return '📱 ثبّت التطبيق';
-    }
-  };
-
-  const getInstalledLabel = () => {
-    switch (lang) {
-      case 'ar':
-        return '✓ التطبيق مثبت على جهازك';
-      case 'en':
-        return '✓ App installed on your device';
-      case 'fr':
-        return '✓ App installée sur votre appareil';
-      case 'ha':
-        return '✓ An riga an sanya manhajar';
-      case 'zh':
-        return '✓ 应用已安装在您的设备上';
-      default:
-        return '✓ التطبيق مثبت على جهازك';
+        return '📱 تثبيت على الجهاز';
     }
   };
 
   const handleClick = async () => {
-    if (isInstalled) return;
-
     if (canPromptDirectly) {
       const outcome = await install();
       if (outcome === 'manual' || outcome === 'dismissed') {
@@ -75,53 +56,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
     }
   };
 
-  // If already installed: display "✓ التطبيق مثبت على جهازك"
-  if (isInstalled) {
-    if (variant === 'navbar') {
-      return (
-        <div 
-          className={`inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700/80 text-emerald-100 rounded-xl text-xs font-black border border-emerald-400/40 shadow-xs ${className}`}
-          title={getInstalledLabel()}
-        >
-          <Check className="w-3.5 h-3.5 text-emerald-300 stroke-[3]" />
-          <span className="truncate">{getInstalledLabel()}</span>
-        </div>
-      );
-    }
-
-    if (variant === 'hero') {
-      return (
-        <div 
-          className={`inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600/90 text-white rounded-2xl text-xs sm:text-sm font-black border border-emerald-400/50 shadow-md ${className}`}
-        >
-          <div className="w-5 h-5 rounded-full bg-white text-emerald-700 flex items-center justify-center shrink-0">
-            <Check className="w-3.5 h-3.5 stroke-[3]" />
-          </div>
-          <span>{getInstalledLabel()}</span>
-        </div>
-      );
-    }
-
-    if (variant === 'banner') {
-      return (
-        <div className={`p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-center justify-between gap-3 ${className}`}>
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center">
-              <Check className="w-5 h-5 stroke-[3]" />
-            </div>
-            <div>
-              <p className="text-sm font-black">{getInstalledLabel()}</p>
-              <p className="text-xs text-emerald-700">يعمل التطبيق الآن بكامل ميزاته وبدون اتصال</p>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return null;
-  }
-
-  // Not installed yet: render "📱 ثبّت التطبيق"
+  // Strictly render "تثبيت على الجهاز" without ever displaying "التطبيق مثبت عندك"
   return (
     <>
       {variant === 'navbar' && (
@@ -155,7 +90,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
             </div>
             <div>
               <h4 className="text-base sm:text-lg font-black tracking-tight leading-tight">
-                {lang === 'ar' ? 'استخدم الموقع كتطبيق هاتف متكامل (PWA)' : 'Use this site as a full smartphone app (PWA)'}
+                {lang === 'ar' ? 'التثبيت على الجهاز (PWA)' : 'Install on Device (PWA)'}
               </h4>
               <p className="text-xs text-orange-100 font-medium">
                 {lang === 'ar' 

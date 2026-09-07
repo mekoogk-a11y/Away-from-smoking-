@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right Action: PWA Install + SOS Need Help Now + 5-Language Switcher */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             
-            {/* PWA Install Button: 📱 ثبّت التطبيق or ✓ التطبيق مثبت على جهازك */}
+            {/* PWA Install Button: 📱 تثبيت على الجهاز */}
             <PWAInstallButton lang={lang} variant="navbar" />
 
             {/* Urgent "أحتاج مساعدة الآن" Button */}

@@ -67,10 +67,10 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({
               <span>{lang === 'ar' ? 'تطبيق ويب تقدمي PWA' : 'Progressive Web App'}</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900">
-              {lang === 'ar' ? 'تثبيت Quit Smoking على هاتفك' : 'Install Quit Smoking App'}
+              {lang === 'ar' ? 'تثبيت Quit Smoking على الجهاز' : 'Install Quit Smoking on Device'}
             </h3>
             <p className="text-xs text-slate-500 font-semibold">
-              {lang === 'ar' ? 'يعمل كتطبيق مستقل بدون شريط متصفح وبدون اتصال' : 'Runs like a native standalone app offline'}
+              {lang === 'ar' ? 'تثبيت على الجهاز للعمل بدون شريط متصفح وبدون اتصال' : 'Install on device to run offline without browser address bar'}
             </p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({
         {canPromptDirectly ? (
           <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md text-center">
             <p className="text-xs font-bold text-orange-100 mb-3">
-              {lang === 'ar' ? 'متصفحك يدعم التثبيت الفوري بنقرة واحدة:' : 'Your browser supports one-click instant install:'}
+              {lang === 'ar' ? 'متصفحك يدعم التثبيت المباشر على الجهاز بنقرة واحدة:' : 'Your browser supports one-click instant install on device:'}
             </p>
             <button
               onClick={async () => {
@@ -91,7 +91,7 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({
               className="w-full flex items-center justify-center gap-2 py-3 px-5 bg-white hover:bg-orange-50 text-orange-700 font-black rounded-xl shadow transition-all active:scale-95 cursor-pointer text-sm"
             >
               <Download className="w-4 h-4" />
-              <span>{lang === 'ar' ? '📱 ثبّت التطبيق الآن فوراً' : '📱 Install App Now'}</span>
+              <span>{lang === 'ar' ? '📱 تثبيت على الجهاز الآن' : '📱 Install on Device Now'}</span>
             </button>
           </div>
         ) : null}
@@ -103,7 +103,7 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({
             <span>
               {isIOS 
                 ? (lang === 'ar' ? 'طريقة التثبيت على أجهزة iPhone و iPad (سفاري):' : 'Installation for iPhone & iPad (Safari):')
-                : (lang === 'ar' ? 'خطوات إضافة التطبيق لشاشة هاتفك الرئيسية:' : 'Steps to add the app to your Home Screen:')}
+                : (lang === 'ar' ? 'خطوات التثبيت على الجهاز وإضافته للشاشة الرئيسية:' : 'Steps to install on your device and add to Home Screen:')}
             </span>
           </div>
 
