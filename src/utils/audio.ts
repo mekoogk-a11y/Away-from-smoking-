@@ -114,6 +114,14 @@ class SoundEffects {
     }
   }
 
+  playClick() {
+    this.playTap();
+  }
+
+  playSuccess() {
+    this.playFanfare();
+  }
+
   // Soft rhythmic pulse for timers and steady breathing
   playRhythmPulse() {
     if (!this.enabled) return;

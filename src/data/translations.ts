@@ -1,19 +1,33 @@
 import { Language } from '../types';
 
 export const languageMeta: Record<Language, { label: string; flag: string; dir: 'rtl' | 'ltr'; nativeName: string }> = {
-  ar: { label: 'العربية', flag: '🇸🇦', dir: 'rtl', nativeName: 'العربية' },
   en: { label: 'English', flag: '🇬🇧', dir: 'ltr', nativeName: 'English' },
+  ar: { label: 'العربية', flag: '🇸🇦', dir: 'rtl', nativeName: 'العربية' },
   fr: { label: 'Français', flag: '🇫🇷', dir: 'ltr', nativeName: 'Français' },
-  ha: { label: 'Hausa', flag: '🇳🇬', dir: 'ltr', nativeName: 'Hausa' },
-  zh: { label: '中文', flag: '🇨🇳', dir: 'ltr', nativeName: '简体中文' }
+  es: { label: 'Español', flag: '🇪🇸', dir: 'ltr', nativeName: 'Español' },
+  pt: { label: 'Português', flag: '🇵🇹', dir: 'ltr', nativeName: 'Português' },
+  de: { label: 'Deutsch', flag: '🇩🇪', dir: 'ltr', nativeName: 'Deutsch' },
+  zh: { label: '中文', flag: '🇨🇳', dir: 'ltr', nativeName: '简体中文' },
+  ja: { label: '日本語', flag: '🇯🇵', dir: 'ltr', nativeName: '日本語' },
+  ru: { label: 'Русский', flag: '🇷🇺', dir: 'ltr', nativeName: 'Русский' },
+  tr: { label: 'Türkçe', flag: '🇹🇷', dir: 'ltr', nativeName: 'Türkçe' },
+  hi: { label: 'हिन्दी', flag: '🇮🇳', dir: 'ltr', nativeName: 'हिन्दी' },
+  ur: { label: 'اردو', flag: '🇵🇰', dir: 'rtl', nativeName: 'اردو' }
 };
 
 export const languagesConfig: { code: Language; label: string; flag: string; dir: 'rtl' | 'ltr' }[] = [
-  { code: 'ar', label: 'العربية', flag: '🇸🇦', dir: 'rtl' },
   { code: 'en', label: 'English', flag: '🇬🇧', dir: 'ltr' },
+  { code: 'ar', label: 'العربية', flag: '🇸🇦', dir: 'rtl' },
   { code: 'fr', label: 'Français', flag: '🇫🇷', dir: 'ltr' },
-  { code: 'ha', label: 'Hausa', flag: '🇳🇬', dir: 'ltr' },
+  { code: 'es', label: 'Español', flag: '🇪🇸', dir: 'ltr' },
+  { code: 'pt', label: 'Português', flag: '🇵🇹', dir: 'ltr' },
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
   { code: 'zh', label: '中文', flag: '🇨🇳', dir: 'ltr' },
+  { code: 'ja', label: '日本語', flag: '🇯🇵', dir: 'ltr' },
+  { code: 'ru', label: 'Русский', flag: '🇷🇺', dir: 'ltr' },
+  { code: 'tr', label: 'Türkçe', flag: '🇹🇷', dir: 'ltr' },
+  { code: 'hi', label: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
+  { code: 'ur', label: 'اردو', flag: '🇵🇰', dir: 'rtl' }
 ];
 
 export const translations = {
@@ -688,3 +702,12 @@ export const translations = {
     rightsStatement: 'جميع الحقوق محفوظة لصالح منصة الهدي والنور للتطبيقات والمواقع الإسلامية Sudan',
   }
 };
+
+export type TranslationKey = keyof typeof translations.en;
+
+export function getTranslations(lang: Language): typeof translations.en {
+  const base = translations.en;
+  const target = (translations as Record<string, any>)[lang];
+  if (!target) return base;
+  return { ...base, ...target };
+}

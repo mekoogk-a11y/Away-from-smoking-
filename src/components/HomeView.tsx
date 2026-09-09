@@ -73,7 +73,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-black text-orange-100 border border-white/25">
               <Sparkles className="w-3.5 h-3.5 text-amber-200" />
-              <span>{lang === 'ar' ? 'المنصة العالمية لمكافحة التدخين والتعافي' : 'Global Tobacco Cessation & Recovery Platform'}</span>
+              <span>BEYOND SMOKING — The Digital Anti-Smoking Awareness Magazine</span>
             </div>
 
             <button
@@ -85,19 +85,109 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </button>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-snug mb-3">
-            {t.tagline}
+          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-snug mb-1">
+            {lang === 'ar' ? 'أقلع عن التدخين. استعد صحتك وحريتك.' : 'Quit Smoking. Reclaim Your Health.'}
           </h2>
+          <p className="text-sm sm:text-base text-amber-200 font-bold mb-3">
+            {lang === 'ar' ? 'صحتك. حريتك. مستقبلك.' : 'Your Health. Your Freedom. Your Future.'}
+          </p>
 
           <p className="text-sm sm:text-base text-orange-100 leading-relaxed mb-6 max-w-3xl font-medium">
             {lang === 'ar'
-              ? 'مرحباً بك في منصتك الطبية العالمية لإنهاء إدمان التبغ، استعادة صحة الرئتين والقلب، توفير أموالك، والتواصل مع خطوط المساعدة الرسمية والمراكز المعتمدة.'
-              : 'Welcome to your global clinical platform to end nicotine addiction, regenerate vital organs, save money, and connect with accredited national helplines and specialists.'}
+              ? 'مرحباً بك في BEYOND SMOKING: المنصة والمجلة الرقمية العالمية للتوعية بمخاطر التبغ، مع معرض لوحات تشكيلية، مركز سينما الفيديو، تحدي الـ 30 يوماً، وتتبع دقيق للتعافي والمدخرات.'
+              : 'Welcome to BEYOND SMOKING: The premier digital magazine and clinical awareness platform featuring campaign artwork galleries, official video cinema, a 30-day cessation challenge, and live recovery analytics.'}
           </p>
 
           {/* Prominent PWA Install Action in Hero */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <PWAInstallButton lang={lang} variant="hero" />
+          </div>
+
+          {/* 4 Pillars of BEYOND SMOKING Feature Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+            {/* 1: Digital Magazine */}
+            <button
+              onClick={() => onNavigate('magazine')}
+              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-amber-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                  📖
+                </div>
+                <div>
+                  <span className="block text-sm font-black text-white">
+                    {lang === 'ar' ? 'المجلة الرقمية' : 'Digital Magazine'}
+                  </span>
+                  <span className="block text-xs text-orange-300">
+                    {lang === 'ar' ? 'مقالات وقراءة صوتية' : 'Articles & Audio'}
+                  </span>
+                </div>
+              </div>
+              <ArrowIcon className="w-4 h-4 text-orange-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+            </button>
+
+            {/* 2: Awareness Artwork Gallery */}
+            <button
+              onClick={() => onNavigate('gallery')}
+              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-amber-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                  🎨
+                </div>
+                <div>
+                  <span className="block text-sm font-black text-white">
+                    {lang === 'ar' ? 'معرض اللوحات (9)' : 'Awareness Art (9)'}
+                  </span>
+                  <span className="block text-xs text-amber-300">
+                    {lang === 'ar' ? 'رسائل مرئية مؤثرة' : 'Vector Art & Audio'}
+                  </span>
+                </div>
+              </div>
+              <ArrowIcon className="w-4 h-4 text-amber-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+            </button>
+
+            {/* 3: Video Center */}
+            <button
+              onClick={() => onNavigate('videoCenter')}
+              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-amber-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                  🎬
+                </div>
+                <div>
+                  <span className="block text-sm font-black text-white">
+                    {lang === 'ar' ? 'مركز الفيديو' : 'Video Cinema'}
+                  </span>
+                  <span className="block text-xs text-rose-300">
+                    {lang === 'ar' ? 'الفيلم مع الفصول' : 'Film & Chapters'}
+                  </span>
+                </div>
+              </div>
+              <ArrowIcon className="w-4 h-4 text-rose-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+            </button>
+
+            {/* 4: 30-Day Challenge */}
+            <button
+              onClick={() => onNavigate('challenge')}
+              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-emerald-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                  🔥
+                </div>
+                <div>
+                  <span className="block text-sm font-black text-white">
+                    {lang === 'ar' ? 'تحدي الـ 30 يوماً' : '30-Day Challenge'}
+                  </span>
+                  <span className="block text-xs text-emerald-300">
+                    {lang === 'ar' ? 'متابعة يومية ومذكرات' : 'Daily Check-In'}
+                  </span>
+                </div>
+              </div>
+              <ArrowIcon className="w-4 h-4 text-emerald-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+            </button>
           </div>
 
           {/* Primary Quick Access Grid */}

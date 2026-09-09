@@ -1,6 +1,6 @@
 {
-  "name": "Quit Smoking | كيف تترك التدخين",
-  "description": "تطبيق ويب تقدمي (PWA) عالمي واحترافي للتوعية بمخاطر التدخين والمساعدة على الإقلاع النهائي مع أدوات الطوارئ والتعافي وحساب التوفير والصحة.",
+  "name": "BEYOND SMOKING | The Digital Anti-Smoking Awareness Magazine",
+  "description": "Quit Smoking. Reclaim Your Health. Your Health. Your Freedom. Your Future. An international digital awareness magazine and interactive quit-smoking platform.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

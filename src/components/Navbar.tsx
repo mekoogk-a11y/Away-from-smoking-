@@ -15,7 +15,9 @@ import {
   ShieldCheck, 
   Zap,
   Globe2,
-  ChevronDown
+  ChevronDown,
+  Sparkles,
+  CalendarCheck2
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -33,19 +35,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleLanguage,
   onOpenNeedHelpNow
 }) => {
-  const t = translations[lang];
+  const t = translations[lang] || translations.en;
+  const isAr = lang === 'ar' || lang === 'ur';
   const [showLangMenu, setShowLangMenu] = useState(false);
 
   const navItems = [
-    { id: 'home', label: t.home, icon: Home },
-    { id: 'medical-photos', label: t.medicalPhotos, icon: Camera },
-    { id: 'expert', label: t.expertHelp, icon: HeartHandshake },
-    { id: 'doctors', label: t.doctors, icon: Stethoscope },
-    { id: 'centers', label: t.globalCenters, icon: Building2 },
-    { id: 'cravings', label: t.cravingRescue, icon: Flame },
-    { id: 'videos', label: t.videoLibrary, icon: PlaySquare },
-    { id: 'sources', label: t.medicalSources, icon: BookOpen },
-    { id: 'legal', label: t.privacyPolicy, icon: ShieldCheck }
+    { id: 'home', label: t.home || 'Home', icon: Home },
+    { id: 'magazine', label: isAr ? 'المجلة الرقمية' : 'Digital Magazine', icon: BookOpen },
+    { id: 'gallery', label: isAr ? 'معرض اللوحات (9)' : 'Awareness Gallery', icon: Sparkles },
+    { id: 'videoCenter', label: isAr ? 'مركز الفيديو' : 'Video Center', icon: PlaySquare },
+    { id: 'challenge', label: isAr ? 'تحدي الـ 30 يوماً' : '30-Day Challenge', icon: CalendarCheck2 },
+    { id: 'medical-photos', label: t.medicalPhotos || 'Medical Photos', icon: Camera },
+    { id: 'expert', label: t.expertHelp || 'Expert Help', icon: HeartHandshake },
+    { id: 'doctors', label: t.doctors || 'Doctors', icon: Stethoscope },
+    { id: 'centers', label: t.globalCenters || 'Centers', icon: Building2 },
+    { id: 'cravings', label: t.cravingRescue || 'Craving Relief', icon: Flame },
+    { id: 'sources', label: t.medicalSources || 'Medical Sources', icon: ShieldCheck }
   ];
 
   const currentLangObj = languagesConfig.find(l => l.code === lang) || languagesConfig[0];
@@ -64,16 +69,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             <AppLogo size="md" />
             <div>
               <h1 className="font-black text-base sm:text-lg text-white tracking-tight leading-tight group-hover:text-orange-100 transition-colors">
-                {t.appName}
+                BEYOND SMOKING
               </h1>
               <p className="text-[11px] sm:text-xs font-semibold text-orange-200">
-                {t.appSubname}
+                {isAr ? 'أنت وصحتك أولاً | Quit Smoking' : 'Quit Smoking. Reclaim Your Health.'}
               </p>
             </div>
           </button>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden 2xl:flex items-center gap-1 bg-orange-700/40 p-1 rounded-2xl border border-orange-400/30">
+          <nav className="hidden xl:flex items-center gap-1 bg-orange-700/40 p-1 rounded-2xl border border-orange-400/30 overflow-x-auto max-w-2xl">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentTab === item.id;
@@ -82,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={item.id}
                   onClick={() => onSelectTab(item.id)}
                   id={`nav-link-${item.id}`}
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                     isActive
                       ? 'bg-white text-orange-700 shadow-sm'
                       : 'text-orange-100 hover:bg-white/15 hover:text-white'

@@ -31,6 +31,10 @@ import { ProfileModal } from './components/ProfileModal';
 import { Footer } from './components/Footer';
 import { PWASplashScreen } from './components/PWASplashScreen';
 import { OfflineIndicator } from './components/OfflineIndicator';
+import { MagazineView } from './components/MagazineView';
+import { AwarenessGalleryView } from './components/AwarenessGalleryView';
+import { VideoCenterView } from './components/VideoCenterView';
+import { ChallengeView } from './components/ChallengeView';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('ar');
@@ -60,8 +64,8 @@ export default function App() {
   // Update HTML document attributes on language change
   useEffect(() => {
     document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.title = lang === 'ar' ? 'كيف تترك التدخين | Quit Smoking' : 'Quit Smoking | كيف تترك التدخين';
+    document.documentElement.dir = lang === 'ar' || lang === 'ur' ? 'rtl' : 'ltr';
+    document.title = 'BEYOND SMOKING | Quit Smoking. Reclaim Your Health.';
   }, [lang]);
 
   // Live second-by-second ticker for calculated stats
@@ -160,6 +164,26 @@ export default function App() {
             onOpenProfileModal={() => setShowProfileModal(true)}
             onOpenNeedHelpNow={() => setShowNeedHelpModal(true)}
           />
+        )}
+
+        {/* Digital Magazine View */}
+        {currentTab === 'magazine' && (
+          <MagazineView lang={lang} onNavigateToTab={navigateTo} />
+        )}
+
+        {/* Awareness Gallery View (9 artworks) */}
+        {currentTab === 'gallery' && (
+          <AwarenessGalleryView lang={lang} />
+        )}
+
+        {/* Video Center View (Film & Chapters) */}
+        {currentTab === 'videoCenter' && (
+          <VideoCenterView lang={lang} />
+        )}
+
+        {/* 30-Day Quit Smoking Challenge */}
+        {currentTab === 'challenge' && (
+          <ChallengeView lang={lang} onNavigateToTab={navigateTo} />
         )}
 
         {/* 2: Medical Damage Photography */}

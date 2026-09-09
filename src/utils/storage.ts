@@ -1,8 +1,10 @@
-import { CalculatedStats, Language, UserProfile, VideoItem, Achievement, DoctorExpert, QuitCenter } from '../types';
+import { CalculatedStats, Language, UserProfile, VideoItem, Achievement, DoctorExpert, QuitCenter, ChallengeDay, DailyCheckIn, JournalEntry, MagazineArticle } from '../types';
 import { initialVideos } from '../data/videoData';
 import { initialAchievements } from '../data/milestones';
 import { initialDoctorsDirectory } from '../data/doctorsData';
 import { initialQuitCenters } from '../data/centersData';
+import { thirtyDayChallenge } from '../data/challengeData';
+import { magazineArticles } from '../data/magazineArticlesData';
 import { soundFx } from './audio';
 
 const PROFILE_KEY = 'quit_smoking_user_profile_v2';
@@ -11,15 +13,23 @@ const VIDEOS_KEY = 'quit_smoking_custom_videos_v2';
 const ACHIEVEMENTS_KEY = 'quit_smoking_achievements_v2';
 const DOCTORS_KEY = 'quit_smoking_custom_doctors_v2';
 const CENTERS_KEY = 'quit_smoking_custom_centers_v2';
+const CHALLENGE_KEY = 'quit_smoking_challenge_days_v2';
+const CHECKINS_KEY = 'quit_smoking_daily_checkins_v2';
+const JOURNAL_KEY = 'quit_smoking_journal_entries_v2';
+const ARTICLES_KEY = 'quit_smoking_magazine_articles_v2';
 
 export const CURRENCIES = [
-  { code: 'SAR', symbol: '﷼', nameAr: 'ريال سعودي', nameEn: 'Saudi Riyal' },
   { code: 'USD', symbol: '$', nameAr: 'دولار أمريكي', nameEn: 'US Dollar' },
+  { code: 'SAR', symbol: '﷼', nameAr: 'ريال سعودي', nameEn: 'Saudi Riyal' },
   { code: 'EUR', symbol: '€', nameAr: 'يورو', nameEn: 'Euro' },
   { code: 'GBP', symbol: '£', nameAr: 'جنيه إسترليني', nameEn: 'British Pound' },
   { code: 'AED', symbol: 'د.إ', nameAr: 'درهم إماراتي', nameEn: 'UAE Dirham' },
   { code: 'CNY', symbol: '¥', nameAr: 'يوان صيني', nameEn: 'Chinese Yuan (RMB)' },
-  { code: 'NGN', symbol: '₦', nameAr: 'نايرا نيجيرية', nameEn: 'Nigerian Naira' },
+  { code: 'JPY', symbol: '¥', nameAr: 'ين ياباني', nameEn: 'Japanese Yen' },
+  { code: 'INR', symbol: '₹', nameAr: 'روبية هندية', nameEn: 'Indian Rupee' },
+  { code: 'TRY', symbol: '₺', nameAr: 'ليرة تركية', nameEn: 'Turkish Lira' },
+  { code: 'BRL', symbol: 'R$', nameAr: 'ريال برازيلي', nameEn: 'Brazilian Real' },
+  { code: 'RUB', symbol: '₽', nameAr: 'روبل روسي', nameEn: 'Russian Ruble' },
   { code: 'EGP', symbol: 'ج.م', nameAr: 'جنيه مصري', nameEn: 'Egyptian Pound' },
   { code: 'KWD', symbol: 'د.ك', nameAr: 'دينار كويتي', nameEn: 'Kuwaiti Dinar' },
   { code: 'QAR', symbol: 'ر.ق', nameAr: 'ريال قطري', nameEn: 'Qatari Riyal' }
@@ -30,10 +40,10 @@ export function getDefaultProfile(): UserProfile {
   const pastTime = new Date(Date.now() - 48 * 3600 * 1000).toISOString();
   return {
     cigarettesPerDay: 20,
-    packPrice: 28,
+    packPrice: 10,
     cigarettesPerPack: 20,
     quitDate: pastTime,
-    currency: 'SAR',
+    currency: 'USD',
     isConfigured: true,
     soundEnabled: true
   };
@@ -68,17 +78,19 @@ export function saveUserProfile(profile: UserProfile): void {
   }
 }
 
+const VALID_LANGUAGES: Language[] = ['en', 'ar', 'fr', 'es', 'pt', 'de', 'zh', 'ja', 'ru', 'tr', 'hi', 'ur'];
+
 export function loadLanguage(): Language {
-  if (typeof window === 'undefined') return 'ar';
+  if (typeof window === 'undefined') return 'en';
   try {
     const raw = localStorage.getItem(LANG_KEY);
-    if (raw === 'ar' || raw === 'en' || raw === 'fr' || raw === 'ha' || raw === 'zh') {
+    if (raw && VALID_LANGUAGES.includes(raw as Language)) {
       return raw as Language;
     }
   } catch (e) {
     console.error(e);
   }
-  return 'ar';
+  return 'en';
 }
 
 export function saveLanguage(lang: Language): void {
@@ -190,6 +202,136 @@ export function saveCenters(centers: QuitCenter[]): void {
   }
 }
 
+// 30-Day Challenge Storage
+export function loadChallengeDays(): ChallengeDay[] {
+  if (typeof window === 'undefined') return thirtyDayChallenge;
+  try {
+    const raw = localStorage.getItem(CHALLENGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return thirtyDayChallenge;
+}
+
+export function saveChallengeDays(days: ChallengeDay[]): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(CHALLENGE_KEY, JSON.stringify(days));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Daily Check-Ins Storage
+export function loadDailyCheckIns(): DailyCheckIn[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(CHECKINS_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return [];
+}
+
+export function saveDailyCheckIns(checkIns: DailyCheckIn[]): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(CHECKINS_KEY, JSON.stringify(checkIns));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export function recordTodayCheckIn(smokeFree: boolean, cravingLevel: number, mood: 'great' | 'good' | 'neutral' | 'struggling', notes?: string): DailyCheckIn[] {
+  const current = loadDailyCheckIns();
+  const today = new Date().toISOString().split('T')[0];
+  const existingIdx = current.findIndex(c => c.date === today);
+  const newEntry: DailyCheckIn = {
+    date: today,
+    smokeFree,
+    cravingLevel,
+    mood,
+    notes,
+    timestamp: Date.now()
+  };
+  let updated: DailyCheckIn[];
+  if (existingIdx >= 0) {
+    updated = [...current];
+    updated[existingIdx] = newEntry;
+  } else {
+    updated = [newEntry, ...current];
+  }
+  saveDailyCheckIns(updated);
+  return updated;
+}
+
+// Journal Storage
+export function loadJournalEntries(): JournalEntry[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(JOURNAL_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return [];
+}
+
+export function saveJournalEntries(entries: JournalEntry[]): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Magazine Articles Storage (Allows Admin/CMS additions while preserving defaults)
+export function loadArticles(): MagazineArticle[] {
+  if (typeof window === 'undefined') return magazineArticles;
+  try {
+    const raw = localStorage.getItem(ARTICLES_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // Merge with defaults to ensure all built-in articles exist
+        const customSlugs = new Set(parsed.map((a: MagazineArticle) => a.slug));
+        const missingDefaults = magazineArticles.filter(a => !customSlugs.has(a.slug));
+        return [...missingDefaults, ...parsed];
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return magazineArticles;
+}
+
+export function saveArticles(articles: MagazineArticle[]): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(ARTICLES_KEY, JSON.stringify(articles));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function calculateStats(profile: UserProfile): CalculatedStats {
   const quitTime = new Date(profile.quitDate).getTime();
   const now = Date.now();
@@ -206,7 +348,7 @@ export function calculateStats(profile: UserProfile): CalculatedStats {
 
   // Money saved
   const packCount = profile.cigarettesPerPack > 0 ? profile.cigarettesPerPack : 20;
-  const costPerCigarette = (profile.packPrice || 25) / packCount;
+  const costPerCigarette = (profile.packPrice || 10) / packCount;
   const moneySaved = Number((cigarettesAvoided * costPerCigarette).toFixed(1));
 
   // Life regained: ~11 minutes per avoided cigarette
@@ -231,4 +373,8 @@ export function resetAllData(): void {
   localStorage.removeItem(ACHIEVEMENTS_KEY);
   localStorage.removeItem(DOCTORS_KEY);
   localStorage.removeItem(CENTERS_KEY);
+  localStorage.removeItem(CHALLENGE_KEY);
+  localStorage.removeItem(CHECKINS_KEY);
+  localStorage.removeItem(JOURNAL_KEY);
+  localStorage.removeItem(ARTICLES_KEY);
 }

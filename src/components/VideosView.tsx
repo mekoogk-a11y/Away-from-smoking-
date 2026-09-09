@@ -30,7 +30,7 @@ interface VideosViewProps {
 type VideoCategoryKey = 'all' | 'medical' | 'psychology' | 'tips' | 'motivation';
 
 // Multilingual labels for 100% coverage across Arabic, English, French, Hausa, and Chinese
-const labels: Record<Language, {
+const labels: Record<string, {
   headerBadge: string;
   headerTitle: string;
   headerDesc: string;

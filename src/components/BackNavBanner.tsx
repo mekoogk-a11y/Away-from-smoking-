@@ -11,7 +11,7 @@ interface BackNavBannerProps {
 }
 
 export const getTabName = (tabId: string, lang: Language): string => {
-  const names: Record<string, Record<Language, string>> = {
+  const names: Record<string, Record<string, string>> = {
     'home': {
       ar: 'الصفحة الرئيسية',
       en: 'Home Page',
@@ -102,6 +102,34 @@ export const getTabName = (tabId: string, lang: Language): string => {
       fr: 'À Propos de l’Application',
       ha: 'Game da Manhajar',
       zh: '关于本平台与制作信息'
+    },
+    'magazine': {
+      ar: 'المجلة الرقمية BEYOND SMOKING',
+      en: 'Digital Magazine (BEYOND SMOKING)',
+      fr: 'Magazine Numérique',
+      ha: 'Mujallar Dijital',
+      zh: '数字控烟杂志'
+    },
+    'gallery': {
+      ar: 'معرض اللوحات التوعوية (9 لوحات)',
+      en: 'Awareness Gallery (9 Artworks)',
+      fr: 'Galerie de Sensibilisation',
+      ha: 'Dakin Hotunan Fadakarwa',
+      zh: '控烟公益画作展厅'
+    },
+    'videoCenter': {
+      ar: 'مركز الفيديو التوعوي (فيلم المبادرة)',
+      en: 'Video Center (Official Film)',
+      fr: 'Centre Vidéo',
+      ha: 'Cibiyar Bidiyo',
+      zh: '控烟影视中心'
+    },
+    'challenge': {
+      ar: 'تحدي الـ 30 يوماً والمتابعة اليومية',
+      en: '30-Day Challenge & Check-In',
+      fr: 'Défi 30 Jours & Suivi',
+      ha: 'Kalubalen Kwanaki 30',
+      zh: '30天戒烟挑战与打卡'
     }
   };
 
@@ -121,7 +149,7 @@ export const BackNavBanner: React.FC<BackNavBannerProps> = ({
   const prevName = getTabName(prevTab || 'home', lang);
   const ArrowIcon = lang === 'ar' ? ArrowRight : ArrowLeft;
 
-  const labels = {
+  const labels: Record<string, Record<string, string>> = {
     back: {
       ar: 'رجوع إلى الصفحة السابقة',
       en: 'Back to previous page',
@@ -145,6 +173,10 @@ export const BackNavBanner: React.FC<BackNavBannerProps> = ({
     }
   };
 
+  const backLabel = labels.back[lang] || labels.back.en;
+  const startedFromLabel = labels.startedFrom[lang] || labels.startedFrom.en;
+  const homeLabel = labels.home[lang] || labels.home.en;
+
   return (
     <div className="mb-6 animate-fadeIn">
       <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-3.5 bg-white rounded-2xl border-2 border-orange-200 shadow-sm">
@@ -154,13 +186,13 @@ export const BackNavBanner: React.FC<BackNavBannerProps> = ({
           onClick={onBack}
           id="section-back-button"
           className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-black text-sm rounded-xl shadow-md active:scale-95 transition-all cursor-pointer group"
-          title={`${labels.back[lang]}: ${prevName}`}
+          title={`${backLabel}: ${prevName}`}
         >
           <div className="p-1 bg-white/20 rounded-lg group-hover:bg-white/30 transition-colors">
             <ArrowIcon className="w-4 h-4 text-white transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </div>
           <div className="flex items-center gap-1.5">
-            <span>{labels.back[lang]}</span>
+            <span>{backLabel}</span>
             <span className="hidden sm:inline-block font-normal text-orange-100 text-xs">
               ({prevName})
             </span>
@@ -172,7 +204,7 @@ export const BackNavBanner: React.FC<BackNavBannerProps> = ({
           {/* Breadcrumb info pill */}
           <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold border border-slate-200">
             <History className="w-3.5 h-3.5 text-orange-600" />
-            <span className="text-slate-500 font-medium">{labels.startedFrom[lang]}:</span>
+            <span className="text-slate-500 font-medium">{startedFromLabel}:</span>
             <span className="text-slate-900 font-extrabold truncate max-w-[200px]">{prevName}</span>
           </div>
 
@@ -181,10 +213,10 @@ export const BackNavBanner: React.FC<BackNavBannerProps> = ({
             <button
               onClick={onGoHome}
               className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-orange-50 text-slate-700 hover:text-orange-700 rounded-xl text-xs font-bold border border-slate-200 hover:border-orange-300 transition-all cursor-pointer active:scale-95"
-              title={labels.home[lang]}
+              title={homeLabel}
             >
               <Home className="w-3.5 h-3.5 text-orange-600" />
-              <span>{labels.home[lang]}</span>
+              <span>{homeLabel}</span>
             </button>
           )}
         </div>

@@ -79,14 +79,20 @@ export const AboutView: React.FC<AboutViewProps> = ({
 
         <AppLogo size="xl" className="mb-4" />
         
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
-          {t.appName} | {t.appSubname}
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-1">
+          BEYOND SMOKING
         </h2>
+        <p className="text-sm font-bold text-orange-600 mb-1">
+          Quit Smoking. Reclaim Your Health.
+        </p>
+        <p className="text-xs text-slate-500 font-semibold mb-3">
+          Your Health. Your Freedom. Your Future. — The Digital Anti-Smoking Awareness Magazine
+        </p>
         
         <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed mb-6 font-medium">
           {lang === 'ar'
-            ? 'تطبيق عالمي احترافي يهدف للتوعية الطبية بمخاطر التبغ ومساعدة الأفراد في كل مكان على التحرر من الإدمان، مع تتبع دقيق للصحة والمدخرات المالية وأدوات تفاعلية لإخماد الرغبة الملحة.'
-            : 'A world-class cessation and health awareness application engineered to empower individuals worldwide to overcome nicotine addiction through verified medical data, financial tracking, and real-time urge surfing tools.'}
+            ? 'منصة ومجلة رقمية عالمية متخصصة تهدف للتوعية الطبية بمخاطر التبغ ومساعدة الأفراد في كل مكان على التحرر من الإدمان، مع تتبع دقيق للصحة والمدخرات المالية وأدوات تفاعلية لإخماد الرغبة الملحة وتحدي الـ 30 يوماً.'
+            : 'A premier global digital awareness magazine and cessation platform engineered to empower individuals worldwide to overcome nicotine addiction through verified medical data, financial tracking, awareness art, video cinema, and a 30-day challenge.'}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3">

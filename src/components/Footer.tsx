@@ -37,32 +37,37 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Col 2: Clinical & Awareness Sections */}
           <div>
             <h4 className="font-extrabold text-sm text-white mb-3 tracking-wide">
-              {lang === 'ar' ? 'الأقسام الطبية والتوعوية' : 'Medical & Support'}
+              {lang === 'ar' ? 'الأقسام والمجلة الرقمية' : 'Digital Magazine & Hub'}
             </h4>
             <ul className="space-y-2 text-xs font-bold text-slate-300">
               <li>
                 <button onClick={() => onSelectTab('home')} className="hover:text-orange-400 transition-colors cursor-pointer">
-                  {t.home}
+                  {t.home || 'Home'}
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onSelectTab('magazine')} className="hover:text-orange-400 transition-colors cursor-pointer text-orange-300">
+                  {lang === 'ar' ? 'المجلة الرقمية BEYOND SMOKING' : 'BEYOND SMOKING Magazine'}
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onSelectTab('gallery')} className="hover:text-orange-400 transition-colors cursor-pointer">
+                  {lang === 'ar' ? 'معرض اللوحات التوعوية (9)' : 'Awareness Art Gallery'}
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onSelectTab('videoCenter')} className="hover:text-orange-400 transition-colors cursor-pointer">
+                  {lang === 'ar' ? 'مركز الفيديو (فيلم المبادرة)' : 'Video Cinema Center'}
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onSelectTab('challenge')} className="hover:text-orange-400 transition-colors cursor-pointer text-emerald-400">
+                  {lang === 'ar' ? 'تحدي الـ 30 يوماً ومتابعة اليوم' : '30-Day Quit Challenge'}
                 </button>
               </li>
               <li>
                 <button onClick={() => onSelectTab('medical-photos')} className="hover:text-orange-400 transition-colors cursor-pointer">
                   {t.medicalPhotos}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onSelectTab('expert')} className="hover:text-orange-400 transition-colors cursor-pointer">
-                  {t.expertHelp}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onSelectTab('doctors')} className="hover:text-orange-400 transition-colors cursor-pointer">
-                  {t.doctors}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onSelectTab('centers')} className="hover:text-orange-400 transition-colors cursor-pointer">
-                  {t.globalCenters}
                 </button>
               </li>
             </ul>
