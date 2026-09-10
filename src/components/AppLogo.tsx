@@ -3,15 +3,17 @@ import React from 'react';
 interface AppLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   withText?: boolean;
-  lang?: 'ar' | 'en';
+  lang?: string;
   className?: string;
+  textColor?: string;
 }
 
 export const AppLogo: React.FC<AppLogoProps> = ({
   size = 'md',
   withText = false,
   lang = 'ar',
-  className = ''
+  className = '',
+  textColor = 'text-slate-950'
 }) => {
   const dimensionMap = {
     sm: { box: 'w-9 h-9', svg: 36, text: 'text-sm' },
@@ -22,15 +24,26 @@ export const AppLogo: React.FC<AppLogoProps> = ({
 
   const dim = dimensionMap[size];
 
+  const getPrimaryName = () => {
+    if (lang === 'fr') return 'Le tabagisme est dangereux pour la santé';
+    if (lang === 'en') return 'Smoking Is Harmful to Health';
+    return 'التدخين ضار بالصحة';
+  };
+
+  const getSecondaryName = () => {
+    if (lang === 'ar') return 'Smoking Is Harmful to Health';
+    return 'التدخين ضار بالصحة';
+  };
+
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      {/* App Icon Container - Eggshell White Squircle ("لون البيضة") */}
+      {/* App Icon Container - Clean Medical Pure White Squircle */}
       <div
-        className={`relative ${dim.box} shrink-0 rounded-2xl bg-gradient-to-b from-white via-[#FCFAF6] to-[#F3EDE2] shadow-md shadow-black/15 border border-amber-200/80 ring-1 ring-black/5 p-1.5 flex items-center justify-center overflow-hidden transition-transform hover:scale-105`}
-        title={lang === 'ar' ? 'أيقونة التطبيق: ممنوع التدخين' : 'App Icon: Quit Smoking'}
+        className={`relative ${dim.box} shrink-0 rounded-2xl bg-white shadow-md shadow-slate-900/10 border border-sky-200/80 p-1.5 flex items-center justify-center overflow-hidden transition-transform hover:scale-105`}
+        title={lang === 'ar' ? 'التدخين ضار بالصحة - شعار التطبيق' : 'Smoking Is Harmful to Health - App Icon'}
       >
-        {/* Subtle inner eggshell porcelain sheen */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-white/80 pointer-events-none" />
+        {/* Subtle inner sky-blue sheen */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-sky-50/50 via-white/80 to-transparent pointer-events-none" />
 
         <svg
           viewBox="0 0 100 100"
@@ -38,8 +51,8 @@ export const AppLogo: React.FC<AppLogoProps> = ({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Subtle warm circular plate underlay */}
-          <circle cx="50" cy="50" r="43" fill="#F4EFE6" fillOpacity="0.6" />
+          {/* Subtle medical white/sky circular plate underlay */}
+          <circle cx="50" cy="50" r="43" fill="#F0F9FF" fillOpacity="0.8" />
 
           {/* Cigarette Graphic (Rotated -25 deg for natural perspective) */}
           <g transform="rotate(-25 50 50)">
@@ -142,12 +155,12 @@ export const AppLogo: React.FC<AppLogoProps> = ({
       </div>
 
       {withText && (
-        <div className="flex flex-col text-white leading-tight">
+        <div className={`flex flex-col leading-tight ${textColor}`}>
           <span className={`font-black tracking-tight ${dim.text}`}>
-            {lang === 'ar' ? 'كيف تترك التدخين' : 'Quit Smoking'}
+            {getPrimaryName()}
           </span>
-          <span className="text-xs font-semibold text-orange-100 opacity-90">
-            {lang === 'ar' ? 'Quit Smoking' : 'كيف تترك التدخين'}
+          <span className="text-xs font-bold text-slate-500">
+            {getSecondaryName()}
           </span>
         </div>
       )}

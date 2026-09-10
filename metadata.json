@@ -1,6 +1,6 @@
 {
-  "name": "BEYOND SMOKING | The Digital Anti-Smoking Awareness Magazine",
-  "description": "Quit Smoking. Reclaim Your Health. Your Health. Your Freedom. Your Future. An international digital awareness magazine and interactive quit-smoking platform.",
+  "name": "التدخين ضار بالصحة | Smoking Is Harmful to Health",
+  "description": "التدخين ضار بالصحة - منصة طبية وتوعوية متكاملة للإقلاع النهائي عن التدخين واستعادة عافيتك | Smoking Is Harmful to Health - International clinical smoking cessation platform.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

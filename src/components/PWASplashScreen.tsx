@@ -56,15 +56,15 @@ export const PWASplashScreen: React.FC<PWASplashScreenProps> = ({ lang, onFinish
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-between p-6 sm:p-10 bg-gradient-to-br from-amber-500 via-orange-600 to-amber-700 text-white transition-opacity duration-500 select-none ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-between p-6 sm:p-10 bg-gradient-to-b from-white via-sky-50/80 to-white text-slate-950 transition-opacity duration-500 select-none ${
         fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
       onClick={handleSkip}
     >
       {/* Top subtle badge */}
       <div className="pt-4 text-center">
-        <span className="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-black tracking-wider uppercase border border-white/20 text-orange-100">
-          Official Cessation App
+        <span className="inline-block px-3.5 py-1 rounded-full bg-white text-[11px] font-black tracking-wider border border-sky-200 text-sky-900 shadow-sm">
+          {lang === 'ar' ? 'المنصة الطبية المعتمدة' : lang === 'fr' ? 'Plateforme Médicale Officielle' : 'Official Medical Platform'}
         </span>
       </div>
 
@@ -73,50 +73,56 @@ export const PWASplashScreen: React.FC<PWASplashScreenProps> = ({ lang, onFinish
         
         {/* Animated App Icon Container */}
         <div className="relative mb-6 transform transition-transform animate-bounce">
-          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-white shadow-2xl p-2.5 flex items-center justify-center border-2 border-white/40 overflow-hidden">
+          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-white shadow-xl shadow-sky-950/10 p-3 flex items-center justify-center border-2 border-sky-100 overflow-hidden">
             <img 
               src="/pwa-192x192.png" 
-              alt="Quit Smoking Icon" 
-              className="w-full h-full object-contain drop-shadow-md"
+              alt="Smoking Is Harmful to Health Icon" 
+              className="w-full h-full object-contain drop-shadow-sm"
             />
           </div>
-          <div className="absolute -inset-2 rounded-3xl bg-orange-400/30 blur-lg -z-10 animate-pulse" />
+          <div className="absolute -inset-2 rounded-3xl bg-sky-300/30 blur-xl -z-10 animate-pulse" />
         </div>
 
         {/* App Title */}
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white mb-2 leading-tight">
-          Quit Smoking
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-950 mb-1 leading-tight">
+          {lang === 'fr' 
+            ? 'Le tabagisme est dangereux pour la santé' 
+            : lang === 'en' 
+            ? 'Smoking Is Harmful to Health' 
+            : 'التدخين ضار بالصحة'}
         </h1>
-        <h2 className="text-lg sm:text-xl font-bold text-orange-100 mb-3">
-          كيف تترك التدخين
+        <h2 className="text-base sm:text-lg font-bold text-sky-900 mb-3">
+          {lang === 'ar' ? 'Smoking Is Harmful to Health' : 'التدخين ضار بالصحة'}
         </h2>
-        <p className="text-xs sm:text-sm text-orange-100/90 font-medium leading-relaxed px-4">
+        <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed px-4">
           {lang === 'ar'
-            ? 'منصة عالمية متكاملة للتعافي والإقلاع النهائي عن التدخين'
-            : 'A global evidence-based platform to quit smoking and recover health'}
+            ? 'منصة طبية وتوعوية متكاملة للتعافي والإقلاع النهائي عن التدخين واستعادة عافيتك'
+            : lang === 'fr'
+            ? 'Plateforme médicale mondiale de sensibilisation aux méfaits du tabac et d’aide au sevrage'
+            : 'Comprehensive clinical and evidence-based platform to quit smoking and reclaim your health'}
         </p>
 
         {/* Dynamic Progress Bar */}
-        <div className="w-56 sm:w-64 mt-8 bg-black/20 rounded-full h-2 overflow-hidden p-0.5 border border-white/20">
+        <div className="w-56 sm:w-64 mt-8 bg-sky-100 rounded-full h-2 overflow-hidden p-0.5 border border-sky-200">
           <div 
-            className="bg-white h-full rounded-full transition-all duration-300 ease-out shadow-sm"
+            className="bg-slate-950 h-full rounded-full transition-all duration-300 ease-out shadow-sm"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <p className="text-[11px] font-semibold text-orange-200 mt-2">
+        <p className="text-[11px] font-bold text-slate-500 mt-2">
           {progress < 100 
-            ? (lang === 'ar' ? 'جاري تهيئة الأدوات الطبية...' : 'Loading medical tools...') 
-            : (lang === 'ar' ? 'جاهز للبدء!' : 'Ready!')}
+            ? (lang === 'ar' ? 'جاري تهيئة الأدوات الطبية...' : lang === 'fr' ? 'Chargement des outils médicaux...' : 'Loading medical tools...') 
+            : (lang === 'ar' ? 'جاهز للبدء!' : lang === 'fr' ? 'Prêt !' : 'Ready!')}
         </p>
       </div>
 
       {/* Bottom Credits & Tap to Skip */}
       <div className="pb-4 text-center">
-        <p className="text-[10px] text-orange-200 opacity-80 mb-1">
-          {lang === 'ar' ? 'المس الشاشة للمتابعة فوراً' : 'Tap anywhere to continue'}
+        <p className="text-[10px] text-slate-400 mb-1 font-semibold cursor-pointer">
+          {lang === 'ar' ? 'المس الشاشة للمتابعة فوراً' : lang === 'fr' ? 'Touchez pour continuer' : 'Tap anywhere to continue'}
         </p>
-        <p className="text-[11px] font-bold text-white/90">
+        <p className="text-[11px] font-bold text-slate-700">
           منصة الهدي والنور للتطبيقات والمواقع الإسلامية
         </p>
       </div>

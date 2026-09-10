@@ -35,6 +35,8 @@ import { MagazineView } from './components/MagazineView';
 import { AwarenessGalleryView } from './components/AwarenessGalleryView';
 import { VideoCenterView } from './components/VideoCenterView';
 import { ChallengeView } from './components/ChallengeView';
+import { AppIntroModal } from './components/AppIntroModal';
+import { SudaneseAdVoiceModal } from './components/SudaneseAdVoiceModal';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('ar');
@@ -45,6 +47,15 @@ export default function App() {
   const [tabHistory, setTabHistory] = useState<string[]>(['home']);
   const [showProfileModal, setShowProfileModal] = useState<boolean>(false);
   const [showNeedHelpModal, setShowNeedHelpModal] = useState<boolean>(false);
+  const [showSudaneseAdModal, setShowSudaneseAdModal] = useState<boolean>(false);
+  const [showIntroModal, setShowIntroModal] = useState<boolean>(() => {
+    try {
+      const skipAuto = localStorage.getItem('beyond_smoking_skip_intro_auto');
+      return skipAuto !== 'true';
+    } catch {
+      return true;
+    }
+  });
   const [stats, setStats] = useState<CalculatedStats>(() => calculateStats(getDefaultProfile()));
 
   // Initialize from local storage
@@ -64,8 +75,14 @@ export default function App() {
   // Update HTML document attributes on language change
   useEffect(() => {
     document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' || lang === 'ur' ? 'rtl' : 'ltr';
-    document.title = 'BEYOND SMOKING | Quit Smoking. Reclaim Your Health.';
+    document.documentElement.dir = (lang === 'ar' || lang === 'ur') ? 'rtl' : 'ltr';
+    if (lang === 'fr') {
+      document.title = 'Le tabagisme est dangereux pour la santé | Plateforme de sevrage';
+    } else if (lang === 'en') {
+      document.title = 'Smoking Is Harmful to Health | Quit Smoking Platform';
+    } else {
+      document.title = 'التدخين ضار بالصحة | منصة الإقلاع واستعادة الصحة';
+    }
   }, [lang]);
 
   // Live second-by-second ticker for calculated stats
@@ -140,6 +157,8 @@ export default function App() {
         lang={lang}
         onToggleLanguage={handleToggleLanguage}
         onOpenNeedHelpNow={() => setShowNeedHelpModal(true)}
+        onOpenIntro={() => setShowIntroModal(true)}
+        onOpenSudaneseAdVoice={() => setShowSudaneseAdModal(true)}
       />
 
       {/* Main Page Content Area */}
@@ -163,6 +182,8 @@ export default function App() {
             onNavigate={navigateTo}
             onOpenProfileModal={() => setShowProfileModal(true)}
             onOpenNeedHelpNow={() => setShowNeedHelpModal(true)}
+            onOpenIntro={() => setShowIntroModal(true)}
+            onOpenSudaneseAdVoice={() => setShowSudaneseAdModal(true)}
           />
         )}
 
@@ -298,6 +319,20 @@ export default function App() {
 
       {/* Offline Status Connectivity Banner */}
       <OfflineIndicator lang={lang} />
+
+      {/* Official Anti-Smoking Campaign Intro Video Modal on App Opening */}
+      <AppIntroModal
+        isOpen={showIntroModal}
+        onClose={() => setShowIntroModal(false)}
+        lang={lang}
+      />
+
+      {/* Sudanese Colloquial Ad Voice Modal: إعلان صوتي حماسي بصوت رجل */}
+      <SudaneseAdVoiceModal
+        isOpen={showSudaneseAdModal}
+        onClose={() => setShowSudaneseAdModal(false)}
+        lang={lang}
+      />
 
     </div>
   );

@@ -19,6 +19,7 @@ const JOURNAL_KEY = 'quit_smoking_journal_entries_v2';
 const ARTICLES_KEY = 'quit_smoking_magazine_articles_v2';
 
 export const CURRENCIES = [
+  { code: 'SDG', symbol: 'ج.س', nameAr: 'جنيه سوداني', nameEn: 'Sudanese Pound' },
   { code: 'USD', symbol: '$', nameAr: 'دولار أمريكي', nameEn: 'US Dollar' },
   { code: 'SAR', symbol: '﷼', nameAr: 'ريال سعودي', nameEn: 'Saudi Riyal' },
   { code: 'EUR', symbol: '€', nameAr: 'يورو', nameEn: 'Euro' },
@@ -81,7 +82,7 @@ export function saveUserProfile(profile: UserProfile): void {
 const VALID_LANGUAGES: Language[] = ['en', 'ar', 'fr', 'es', 'pt', 'de', 'zh', 'ja', 'ru', 'tr', 'hi', 'ur'];
 
 export function loadLanguage(): Language {
-  if (typeof window === 'undefined') return 'en';
+  if (typeof window === 'undefined') return 'ar';
   try {
     const raw = localStorage.getItem(LANG_KEY);
     if (raw && VALID_LANGUAGES.includes(raw as Language)) {
@@ -90,7 +91,7 @@ export function loadLanguage(): Language {
   } catch (e) {
     console.error(e);
   }
-  return 'en';
+  return 'ar';
 }
 
 export function saveLanguage(lang: Language): void {

@@ -22,7 +22,8 @@ import {
   Camera,
   HeartHandshake,
   Stethoscope,
-  Building2
+  Building2,
+  Film
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -32,6 +33,8 @@ interface HomeViewProps {
   onNavigate: (tabId: string) => void;
   onOpenProfileModal: () => void;
   onOpenNeedHelpNow: () => void;
+  onOpenIntro?: () => void;
+  onOpenSudaneseAdVoice?: () => void;
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({
@@ -40,7 +43,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
   stats,
   onNavigate,
   onOpenProfileModal,
-  onOpenNeedHelpNow
+  onOpenNeedHelpNow,
+  onOpenIntro,
+  onOpenSudaneseAdVoice
 }) => {
   const t = translations[lang];
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
@@ -61,132 +66,176 @@ export const HomeView: React.FC<HomeViewProps> = ({
   const currentQuote = motivationalQuotes[currentQuoteIndex];
   const ArrowIcon = lang === 'ar' ? ArrowLeft : ArrowRight;
 
+  const getHeroTitle = () => {
+    if (lang === 'fr') return 'Le tabagisme est dangereux pour la santé';
+    if (lang === 'en') return 'Smoking Is Harmful to Health';
+    return 'التدخين ضار بالصحة';
+  };
+
+  const getHeroSubtitle = () => {
+    if (lang === 'ar') return 'أقلع عن التدخين. استعد صحتك وحريتك وعافيتك.';
+    if (lang === 'fr') return 'Arrêtez de fumer. Retrouvez votre santé et votre liberté.';
+    return 'Quit Smoking. Reclaim Your Health, Vitality, and Freedom.';
+  };
+
   return (
     <div className="space-y-6 sm:space-y-8 animate-fadeIn">
       
-      {/* Hero Card */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-orange-600 via-amber-600 to-orange-700 text-white p-6 sm:p-8 shadow-xl overflow-hidden border border-orange-400/30">
-        <div className="absolute top-0 end-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 start-0 w-60 h-60 bg-amber-400/15 rounded-full blur-2xl pointer-events-none" />
+      {/* Hero Card - Pure White with Subtle Sky Atmosphere */}
+      <section className="relative rounded-3xl bg-gradient-to-b from-white via-sky-50/40 to-white text-slate-950 p-6 sm:p-8 shadow-sm overflow-hidden border border-sky-100">
+        <div className="absolute top-0 end-0 w-80 h-80 bg-sky-200/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 start-0 w-60 h-60 bg-sky-100/30 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10 max-w-4xl">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-black text-orange-100 border border-white/25">
-              <Sparkles className="w-3.5 h-3.5 text-amber-200" />
-              <span>BEYOND SMOKING — The Digital Anti-Smoking Awareness Magazine</span>
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-white rounded-full text-xs font-black text-sky-950 border border-sky-200 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-sky-700" />
+              <span>
+                {lang === 'ar'
+                  ? 'التدخين ضار بالصحة — المنصة والمجلة الطبية المعتمدة'
+                  : 'Smoking Is Harmful to Health — Official Medical Platform'}
+              </span>
             </div>
 
             <button
               onClick={onOpenNeedHelpNow}
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-full text-xs font-black shadow-md transition-all active:scale-95 cursor-pointer animate-pulse"
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-black shadow-sm transition-all active:scale-95 cursor-pointer"
             >
-              <Zap className="w-3.5 h-3.5 fill-current text-yellow-300" />
+              <Zap className="w-3.5 h-3.5 fill-current text-white" />
               <span>{t.needHelpNow}</span>
             </button>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-snug mb-1">
-            {lang === 'ar' ? 'أقلع عن التدخين. استعد صحتك وحريتك.' : 'Quit Smoking. Reclaim Your Health.'}
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight leading-snug mb-1">
+            {getHeroTitle()}
           </h2>
-          <p className="text-sm sm:text-base text-amber-200 font-bold mb-3">
-            {lang === 'ar' ? 'صحتك. حريتك. مستقبلك.' : 'Your Health. Your Freedom. Your Future.'}
+          <p className="text-sm sm:text-base text-sky-900 font-extrabold mb-3">
+            {getHeroSubtitle()}
           </p>
 
-          <p className="text-sm sm:text-base text-orange-100 leading-relaxed mb-6 max-w-3xl font-medium">
+          <p className="text-sm sm:text-base text-slate-700 leading-relaxed mb-6 max-w-3xl font-medium">
             {lang === 'ar'
-              ? 'مرحباً بك في BEYOND SMOKING: المنصة والمجلة الرقمية العالمية للتوعية بمخاطر التبغ، مع معرض لوحات تشكيلية، مركز سينما الفيديو، تحدي الـ 30 يوماً، وتتبع دقيق للتعافي والمدخرات.'
-              : 'Welcome to BEYOND SMOKING: The premier digital magazine and clinical awareness platform featuring campaign artwork galleries, official video cinema, a 30-day cessation challenge, and live recovery analytics.'}
+              ? 'المنصة الطبية والتوعوية الشاملة للتعافي والإقلاع النهائي عن التدخين، مع أدوات الطوارئ النفسية، معرض اللوحات التشكيلية، مركز سينما الفيديو، وتحدي الـ 30 يوماً لاستعادة كفاءة الرئة وتوفير أموالك.'
+              : lang === 'fr'
+              ? 'Plateforme médicale mondiale de référence pour le sevrage tabagique, avec galerie artistique, cinéma vidéo officiel, défi de 30 jours et suivi en temps réel de votre santé.'
+              : 'A comprehensive medical and clinical awareness platform for tobacco cessation, featuring high-impact visual galleries, video cinema, a 30-day cessation challenge, and live health analytics.'}
           </p>
 
-          {/* Prominent PWA Install Action in Hero */}
+          {/* Prominent Action Buttons: Sudanese Ad Voice + Intro Video + PWA */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
+            
+            {/* Sudanese Ad Voice Button: صوت إعلاني حماسي */}
+            {onOpenSudaneseAdVoice && (
+              <button
+                onClick={onOpenSudaneseAdVoice}
+                id="hero-sudanese-voice-btn"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-950 hover:bg-slate-800 text-white font-black shadow-md border border-slate-900 transition-all hover:scale-105 active:scale-95 cursor-pointer text-xs sm:text-sm"
+              >
+                <span className="text-base">🎙️</span>
+                <span>{lang === 'ar' ? 'تشغيل الإعلان الصوتي الحماسي (سوداني)' : 'Play Sudanese Ad Voice'}</span>
+                <span className="text-[10px] bg-sky-500/30 text-sky-200 px-2 py-0.5 rounded-full font-bold">
+                  صوت رجل 🇸🇩
+                </span>
+              </button>
+            )}
+
+            {onOpenIntro && (
+              <button
+                onClick={onOpenIntro}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white hover:bg-sky-50 text-slate-950 font-black shadow-sm border border-sky-200 transition-all hover:scale-105 active:scale-95 cursor-pointer text-xs sm:text-sm"
+              >
+                <Film className="w-4 h-4 text-slate-800" />
+                <span>{lang === 'ar' ? 'فيديو الانترو (1:06 د)' : 'Video Intro (1:06)'}</span>
+              </button>
+            )}
+
             <PWAInstallButton lang={lang} variant="hero" />
           </div>
 
-          {/* 4 Pillars of BEYOND SMOKING Feature Grid */}
+          {/* 4 Pillars of Awareness Feature Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
             {/* 1: Digital Magazine */}
             <button
               onClick={() => onNavigate('magazine')}
-              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-amber-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-4 bg-white hover:bg-sky-50/70 text-slate-950 rounded-2xl border border-sky-100 shadow-xs transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-900 flex items-center justify-center font-bold group-hover:scale-105 transition-transform text-lg">
                   📖
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">
+                  <span className="block text-sm font-black text-slate-950">
                     {lang === 'ar' ? 'المجلة الرقمية' : 'Digital Magazine'}
                   </span>
-                  <span className="block text-xs text-orange-300">
+                  <span className="block text-xs text-slate-500 font-bold">
                     {lang === 'ar' ? 'مقالات وقراءة صوتية' : 'Articles & Audio'}
                   </span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-orange-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
             </button>
 
             {/* 2: Awareness Artwork Gallery */}
             <button
               onClick={() => onNavigate('gallery')}
-              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-amber-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-4 bg-white hover:bg-sky-50/70 text-slate-950 rounded-2xl border border-sky-100 shadow-xs transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-900 flex items-center justify-center font-bold group-hover:scale-105 transition-transform text-lg">
                   🎨
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">
+                  <span className="block text-sm font-black text-slate-950">
                     {lang === 'ar' ? 'معرض اللوحات (9)' : 'Awareness Art (9)'}
                   </span>
-                  <span className="block text-xs text-amber-300">
+                  <span className="block text-xs text-slate-500 font-bold">
                     {lang === 'ar' ? 'رسائل مرئية مؤثرة' : 'Vector Art & Audio'}
                   </span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-amber-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
             </button>
 
             {/* 3: Video Center */}
             <button
               onClick={() => onNavigate('videoCenter')}
-              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-amber-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-4 bg-white hover:bg-sky-50/70 text-slate-950 rounded-2xl border border-sky-100 shadow-xs transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-900 flex items-center justify-center font-bold group-hover:scale-105 transition-transform text-lg">
                   🎬
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">
+                  <span className="block text-sm font-black text-slate-950">
                     {lang === 'ar' ? 'مركز الفيديو' : 'Video Cinema'}
                   </span>
-                  <span className="block text-xs text-rose-300">
+                  <span className="block text-xs text-slate-500 font-bold">
                     {lang === 'ar' ? 'الفيلم مع الفصول' : 'Film & Chapters'}
                   </span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-rose-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
             </button>
 
             {/* 4: 30-Day Challenge */}
             <button
               onClick={() => onNavigate('challenge')}
-              className="flex items-center justify-between p-4 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border border-emerald-400/40 shadow-lg transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-4 bg-white hover:bg-sky-50/70 text-slate-950 rounded-2xl border border-sky-100 shadow-xs transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-900 flex items-center justify-center font-bold group-hover:scale-105 transition-transform text-lg">
                   🔥
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">
+                  <span className="block text-sm font-black text-slate-950">
                     {lang === 'ar' ? 'تحدي الـ 30 يوماً' : '30-Day Challenge'}
                   </span>
-                  <span className="block text-xs text-emerald-300">
+                  <span className="block text-xs text-slate-500 font-bold">
                     {lang === 'ar' ? 'متابعة يومية ومذكرات' : 'Daily Check-In'}
                   </span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-emerald-300 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
             </button>
           </div>
 
@@ -196,103 +245,103 @@ export const HomeView: React.FC<HomeViewProps> = ({
             {/* 1: أضرار التدخين المصورة */}
             <button
               onClick={() => onNavigate('medical-photos')}
-              className="flex items-center justify-between p-3.5 bg-white text-orange-700 hover:bg-orange-50 font-black rounded-2xl shadow-md transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-3.5 bg-white text-slate-950 hover:bg-sky-50/70 font-black rounded-2xl shadow-xs border border-sky-100 transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-orange-100 text-orange-700 rounded-xl group-hover:scale-105 transition-transform">
+                <div className="p-2 bg-sky-100 text-sky-900 rounded-xl group-hover:scale-105 transition-transform">
                   <Camera className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-slate-900">{t.medicalPhotos}</span>
+                  <span className="block text-sm font-black text-slate-950">{t.medicalPhotos}</span>
                   <span className="block text-xs text-slate-500 font-semibold">{lang === 'ar' ? 'صور طبية واقعية' : 'Clinical Photography'}</span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-orange-600 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
             </button>
 
             {/* 2: استشارات ومساعدة الإقلاع */}
             <button
               onClick={() => onNavigate('expert')}
-              className="flex items-center justify-between p-3.5 bg-orange-800/40 hover:bg-orange-800/60 backdrop-blur-md text-white font-bold rounded-2xl border border-orange-400/30 transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-3.5 bg-white text-slate-950 hover:bg-sky-50/70 font-black rounded-2xl shadow-xs border border-sky-100 transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-emerald-500/20 text-emerald-200 rounded-xl group-hover:scale-105 transition-transform">
+                <div className="p-2 bg-emerald-100 text-emerald-900 rounded-xl group-hover:scale-105 transition-transform">
                   <HeartHandshake className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">{t.expertHelp}</span>
-                  <span className="block text-xs text-orange-200">{lang === 'ar' ? 'خطوط رسمية ومنظمات' : 'WHO/CDC Helplines'}</span>
+                  <span className="block text-sm font-black text-slate-950">{t.expertHelp}</span>
+                  <span className="block text-xs text-slate-500 font-semibold">{lang === 'ar' ? 'خطوط رسمية ومنظمات' : 'WHO/CDC Helplines'}</span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-orange-200 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
             </button>
 
             {/* 3: الأطباء والخبراء */}
             <button
               onClick={() => onNavigate('doctors')}
-              className="flex items-center justify-between p-3.5 bg-orange-800/40 hover:bg-orange-800/60 backdrop-blur-md text-white font-bold rounded-2xl border border-orange-400/30 transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-3.5 bg-white text-slate-950 hover:bg-sky-50/70 font-black rounded-2xl shadow-xs border border-sky-100 transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-blue-500/20 text-blue-200 rounded-xl group-hover:scale-105 transition-transform">
+                <div className="p-2 bg-blue-100 text-blue-900 rounded-xl group-hover:scale-105 transition-transform">
                   <Stethoscope className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">{t.doctors}</span>
-                  <span className="block text-xs text-orange-200">{lang === 'ar' ? 'أطباء صدر وإدمان' : 'Clinical Specialists'}</span>
+                  <span className="block text-sm font-black text-slate-950">{t.doctors}</span>
+                  <span className="block text-xs text-slate-500 font-semibold">{lang === 'ar' ? 'أطباء صدر وإدمان' : 'Clinical Specialists'}</span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-orange-200 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
             </button>
 
             {/* 4: المراكز العالمية */}
             <button
               onClick={() => onNavigate('centers')}
-              className="flex items-center justify-between p-3.5 bg-orange-800/40 hover:bg-orange-800/60 backdrop-blur-md text-white font-bold rounded-2xl border border-orange-400/30 transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-3.5 bg-white text-slate-950 hover:bg-sky-50/70 font-black rounded-2xl shadow-xs border border-sky-100 transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-teal-500/20 text-teal-200 rounded-xl group-hover:scale-105 transition-transform">
+                <div className="p-2 bg-teal-100 text-teal-900 rounded-xl group-hover:scale-105 transition-transform">
                   <Building2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">{t.globalCenters}</span>
-                  <span className="block text-xs text-orange-200">{lang === 'ar' ? 'عيادات معتمدة وخريطة' : 'Accredited Clinics'}</span>
+                  <span className="block text-sm font-black text-slate-950">{t.globalCenters}</span>
+                  <span className="block text-xs text-slate-500 font-semibold">{lang === 'ar' ? 'عيادات معتمدة وخريطة' : 'Accredited Clinics'}</span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-orange-200 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
             </button>
 
             {/* 5: نصائح الرغبة والإنقاذ */}
             <button
               onClick={() => onNavigate('cravings')}
-              className="flex items-center justify-between p-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-2xl shadow-md transition-all active:scale-95 cursor-pointer text-start group border border-red-300/40"
+              className="flex items-center justify-between p-3.5 bg-white text-slate-950 hover:bg-sky-50/70 font-black rounded-2xl shadow-xs border border-sky-100 transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-white/20 text-white rounded-xl group-hover:scale-105 transition-transform">
-                  <Flame className="w-5 h-5 fill-current text-amber-300" />
+                <div className="p-2 bg-rose-100 text-rose-900 rounded-xl group-hover:scale-105 transition-transform">
+                  <Flame className="w-5 h-5 fill-current text-rose-600" />
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">{t.cravingRescue}</span>
-                  <span className="block text-xs text-red-100">{lang === 'ar' ? 'تمارين 4-7-8 وتشتيت الرغبة' : 'Craving Wave Tools'}</span>
+                  <span className="block text-sm font-black text-slate-950">{t.cravingRescue}</span>
+                  <span className="block text-xs text-slate-500 font-semibold">{lang === 'ar' ? 'تمارين 4-7-8 وتشتيت الرغبة' : 'Craving Wave Tools'}</span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-white transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
             </button>
 
             {/* 6: مكتبة الفيديو التوعوية */}
             <button
               onClick={() => onNavigate('videos')}
-              className="flex items-center justify-between p-3.5 bg-orange-800/40 hover:bg-orange-800/60 backdrop-blur-md text-white font-bold rounded-2xl border border-orange-400/30 transition-all active:scale-95 cursor-pointer text-start group"
+              className="flex items-center justify-between p-3.5 bg-white text-slate-950 hover:bg-sky-50/70 font-black rounded-2xl shadow-xs border border-sky-100 transition-all active:scale-95 cursor-pointer text-start group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-amber-400/20 text-amber-200 rounded-xl group-hover:scale-105 transition-transform">
+                <div className="p-2 bg-sky-100 text-sky-900 rounded-xl group-hover:scale-105 transition-transform">
                   <PlaySquare className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-sm font-black text-white">{t.videoLibrary}</span>
-                  <span className="block text-xs text-orange-200">{lang === 'ar' ? 'فيديوهات تثقيفية' : 'Curated Videos'}</span>
+                  <span className="block text-sm font-black text-slate-950">{t.videoLibrary}</span>
+                  <span className="block text-xs text-slate-500 font-semibold">{lang === 'ar' ? 'فيديوهات تثقيفية' : 'Curated Videos'}</span>
                 </div>
               </div>
-              <ArrowIcon className="w-4 h-4 text-orange-200 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+              <ArrowIcon className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
             </button>
 
           </div>
@@ -303,14 +352,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <PWAInstallButton lang={lang} variant="banner" />
 
       {/* Live Smoke-Free Stats & Money Saved Counter */}
-      <section className="bg-white rounded-3xl p-5 sm:p-7 shadow-lg border border-orange-100">
+      <section className="bg-white rounded-3xl p-5 sm:p-7 shadow-xs border border-sky-100">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           <div className="flex items-center gap-2.5">
-            <div className="p-2.5 bg-orange-100 text-orange-700 rounded-2xl">
+            <div className="p-2.5 bg-sky-100 text-sky-950 rounded-2xl">
               <Clock className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-extrabold text-lg sm:text-xl text-slate-900">
+              <h3 className="font-extrabold text-lg sm:text-xl text-slate-950">
                 {t.smokeFreeTimer}
               </h3>
               <p className="text-xs text-slate-500 font-semibold">
@@ -321,7 +370,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           <button
             onClick={onOpenProfileModal}
-            className="text-xs font-black text-orange-600 hover:text-orange-700 bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-xl transition-all self-start sm:self-auto cursor-pointer"
+            className="text-xs font-black text-slate-950 hover:text-sky-950 bg-sky-50 hover:bg-sky-100 px-3.5 py-1.5 rounded-xl transition-all self-start sm:self-auto cursor-pointer border border-sky-200"
           >
             {t.editProfile}
           </button>
@@ -329,8 +378,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
         {/* 4 Time Boxes (Days, Hours, Minutes, Seconds) */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-2xl text-center border border-orange-200/80 shadow-xs">
-            <span className="block font-black text-3xl sm:text-4xl text-orange-700 tracking-tight">
+          <div className="bg-sky-50/60 p-4 rounded-2xl text-center border border-sky-100 shadow-xs">
+            <span className="block font-black text-3xl sm:text-4xl text-slate-950 tracking-tight">
               {stats.days}
             </span>
             <span className="text-xs sm:text-sm font-bold text-slate-600">
@@ -338,8 +387,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </span>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-2xl text-center border border-orange-200/80 shadow-xs">
-            <span className="block font-black text-3xl sm:text-4xl text-orange-700 tracking-tight">
+          <div className="bg-sky-50/60 p-4 rounded-2xl text-center border border-sky-100 shadow-xs">
+            <span className="block font-black text-3xl sm:text-4xl text-slate-950 tracking-tight">
               {stats.hours}
             </span>
             <span className="text-xs sm:text-sm font-bold text-slate-600">
@@ -347,8 +396,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </span>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-2xl text-center border border-orange-200/80 shadow-xs">
-            <span className="block font-black text-3xl sm:text-4xl text-orange-700 tracking-tight">
+          <div className="bg-sky-50/60 p-4 rounded-2xl text-center border border-sky-100 shadow-xs">
+            <span className="block font-black text-3xl sm:text-4xl text-slate-950 tracking-tight">
               {stats.minutes}
             </span>
             <span className="text-xs sm:text-sm font-bold text-slate-600">
@@ -356,8 +405,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </span>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-2xl text-center border border-orange-200/80 shadow-xs">
-            <span className="block font-black text-3xl sm:text-4xl text-orange-700 tracking-tight animate-pulse">
+          <div className="bg-sky-50/60 p-4 rounded-2xl text-center border border-sky-100 shadow-xs">
+            <span className="block font-black text-3xl sm:text-4xl text-slate-950 tracking-tight animate-pulse">
               {stats.seconds}
             </span>
             <span className="text-xs sm:text-sm font-bold text-slate-600">
@@ -371,18 +420,18 @@ export const HomeView: React.FC<HomeViewProps> = ({
           
           {/* Money Saved */}
           <div className="bg-emerald-50 rounded-2xl p-4 border border-emerald-200 flex items-center gap-3.5">
-            <div className="p-3 bg-emerald-500 text-white rounded-xl shrink-0 shadow-sm">
+            <div className="p-3 bg-emerald-600 text-white rounded-xl shrink-0 shadow-sm">
               <Coins className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
+              <span className="text-xs font-bold text-emerald-900 uppercase tracking-wider block">
                 {t.moneySaved}
               </span>
               <div className="flex items-baseline gap-1">
-                <span className="text-2xl sm:text-3xl font-black text-emerald-700">
+                <span className="text-2xl sm:text-3xl font-black text-emerald-800">
                   {stats.moneySaved.toLocaleString()}
                 </span>
-                <span className="text-sm font-bold text-emerald-900">
+                <span className="text-sm font-bold text-emerald-950">
                   {currencyObj.symbol}
                 </span>
               </div>
@@ -391,18 +440,18 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {/* Cigarettes Avoided */}
           <div className="bg-rose-50 rounded-2xl p-4 border border-rose-200 flex items-center gap-3.5">
-            <div className="p-3 bg-rose-500 text-white rounded-xl shrink-0 shadow-sm">
+            <div className="p-3 bg-rose-600 text-white rounded-xl shrink-0 shadow-sm">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-xs font-bold text-rose-800 uppercase tracking-wider block">
+              <span className="text-xs font-bold text-rose-900 uppercase tracking-wider block">
                 {t.cigarettesAvoided}
               </span>
               <div className="flex items-baseline gap-1">
-                <span className="text-2xl sm:text-3xl font-black text-rose-700">
+                <span className="text-2xl sm:text-3xl font-black text-rose-800">
                   {stats.cigarettesAvoided.toLocaleString()}
                 </span>
-                <span className="text-xs font-bold text-rose-900">
+                <span className="text-xs font-bold text-rose-950">
                   {lang === 'ar' ? 'سيجارة تم تفاديها' : 'avoided'}
                 </span>
               </div>
@@ -411,18 +460,18 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {/* Life Regained */}
           <div className="bg-sky-50 rounded-2xl p-4 border border-sky-200 flex items-center gap-3.5">
-            <div className="p-3 bg-sky-500 text-white rounded-xl shrink-0 shadow-sm">
+            <div className="p-3 bg-sky-600 text-white rounded-xl shrink-0 shadow-sm">
               <Heart className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-xs font-bold text-sky-800 uppercase tracking-wider block">
+              <span className="text-xs font-bold text-sky-900 uppercase tracking-wider block">
                 {t.lifeRegained}
               </span>
               <div className="flex items-baseline gap-1">
-                <span className="text-2xl sm:text-3xl font-black text-sky-700">
+                <span className="text-2xl sm:text-3xl font-black text-sky-800">
                   {stats.lifeRegainedHours.toLocaleString()}
                 </span>
-                <span className="text-xs font-bold text-sky-900">
+                <span className="text-xs font-bold text-sky-950">
                   {lang === 'ar' ? 'ساعة حياة مستردة' : 'clean hours'}
                 </span>
               </div>
@@ -433,11 +482,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* Dynamic Motivational Quotes Carousel */}
-      <section className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden">
+      <section className="bg-gradient-to-r from-sky-50/70 via-white to-sky-50/70 rounded-3xl p-5 sm:p-6 text-slate-950 shadow-xs border border-sky-100 relative overflow-hidden">
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-200" />
-            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-amber-100">
+            <Sparkles className="w-5 h-5 text-sky-700" />
+            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-700">
               {t.dailyMotivation}
             </span>
           </div>
@@ -445,18 +494,18 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <button
             onClick={handleNextQuote}
             id="next-quote-btn"
-            className="flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1 bg-white hover:bg-sky-100 text-slate-800 border border-sky-200 rounded-xl text-xs font-bold transition-all active:scale-95 cursor-pointer"
           >
             <RotateCw className="w-3.5 h-3.5" />
             <span>{t.nextQuote}</span>
           </button>
         </div>
 
-        <blockquote className="text-base sm:text-xl font-bold text-white leading-relaxed mb-3">
+        <blockquote className="text-base sm:text-xl font-bold text-slate-900 leading-relaxed mb-3">
           "{lang === 'ar' ? currentQuote.textAr : currentQuote.textEn}"
         </blockquote>
 
-        <p className="text-xs text-amber-100 font-semibold">
+        <p className="text-xs text-slate-500 font-semibold">
           — {lang === 'ar' ? currentQuote.authorAr : currentQuote.authorEn}
         </p>
       </section>

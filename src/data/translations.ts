@@ -1,8 +1,8 @@
 import { Language } from '../types';
 
 export const languageMeta: Record<Language, { label: string; flag: string; dir: 'rtl' | 'ltr'; nativeName: string }> = {
+  ar: { label: 'العربية', flag: '🇸🇩', dir: 'rtl', nativeName: 'العربية' },
   en: { label: 'English', flag: '🇬🇧', dir: 'ltr', nativeName: 'English' },
-  ar: { label: 'العربية', flag: '🇸🇦', dir: 'rtl', nativeName: 'العربية' },
   fr: { label: 'Français', flag: '🇫🇷', dir: 'ltr', nativeName: 'Français' },
   es: { label: 'Español', flag: '🇪🇸', dir: 'ltr', nativeName: 'Español' },
   pt: { label: 'Português', flag: '🇵🇹', dir: 'ltr', nativeName: 'Português' },
@@ -16,8 +16,8 @@ export const languageMeta: Record<Language, { label: string; flag: string; dir: 
 };
 
 export const languagesConfig: { code: Language; label: string; flag: string; dir: 'rtl' | 'ltr' }[] = [
+  { code: 'ar', label: 'العربية', flag: '🇸🇩', dir: 'rtl' },
   { code: 'en', label: 'English', flag: '🇬🇧', dir: 'ltr' },
-  { code: 'ar', label: 'العربية', flag: '🇸🇦', dir: 'rtl' },
   { code: 'fr', label: 'Français', flag: '🇫🇷', dir: 'ltr' },
   { code: 'es', label: 'Español', flag: '🇪🇸', dir: 'ltr' },
   { code: 'pt', label: 'Português', flag: '🇵🇹', dir: 'ltr' },
@@ -32,9 +32,9 @@ export const languagesConfig: { code: Language; label: string; flag: string; dir
 
 export const translations = {
   ar: {
-    appName: 'كيف تترك التدخين',
-    appSubname: 'Quit Smoking',
-    tagline: 'منصة عالمية للتوعية بمخاطر التبغ ومساعدتك على الإقلاع النهائي',
+    appName: 'التدخين ضار بالصحة',
+    appSubname: 'Smoking Is Harmful to Health',
+    tagline: 'منصة طبية وتوعوية متكاملة للإقلاع النهائي عن التدخين واستعادة عافيتك',
     
     // Nav & Tabs
     home: 'الرئيسية',
@@ -52,6 +52,41 @@ export const translations = {
     terms: 'شروط الاستخدام',
     aboutApp: 'حول المنصة',
     settings: 'الإعدادات',
+    digitalMagazine: 'المجلة الرقمية',
+    awarenessGallery: 'معرض اللوحات التوعوية',
+    videoCenter: 'مركز الفيديو السينمائي',
+    quitChallenge: 'تحدي الـ 30 يوماً',
+    sudaneseAdVoice: 'الصوت الإعلاني الحماسي (عامية سودانية)',
+
+    // Profile Modal & Settings Keys
+    setupProfile: 'إعداد الملف الشخصي وحساب التوفير',
+    cigsPerDay: 'عدد السجائر اليومية',
+    packPrice: 'سعر العلبة',
+    cigsPerPack: 'عدد السجائر في العلبة',
+    currency: 'العملة',
+    lastCigDate: 'تاريخ ووقت آخر سيجارة',
+    saveData: 'حفظ البيانات',
+    editProfile: 'تعديل البيانات',
+    switchLanguage: 'اختيار لغة التطبيق',
+    language: 'اللغة',
+    needHelpNow: 'أحتاج مساعدة الآن',
+    globalCenters: 'المراكز العالمية',
+    cravingRescue: 'التغلب على الرغبة',
+    videoLibrary: 'مكتبة الفيديوهات',
+    myJourney: 'رحلتي وإحصائياتي',
+    privacyPolicy: 'سياسة الخصوصية',
+    termsOfUse: 'شروط الاستخدام',
+    harmsHeader: 'أطلس أضرار التدخين على أجهزة الجسم',
+    harmsSubtitle: 'استكشف الآثار السريرية المباشرة لسموم التبغ على الأعضاء الحيوية، والتعافي المذهل الذي يحدث فور الإقلاع.',
+    medicalStat: 'إحصائية طبية موثقة',
+    achievementsHeader: 'لوحة الإنجازات والأوسمة',
+    achievementsSubtitle: 'كل ساعة تمر بدون تدخين هي نصر لجسمك وصحتك، اجمع الأوسمة واحتفل ببطولتك.',
+    unlockedStatus: 'تم الفتح',
+    lockedStatus: 'قيد الإنجاز',
+    shareApp: 'مشاركة التطبيق',
+    whatsappContact: 'تواصل عبر واتساب',
+    rightsTitle: 'حقوق النشر والتصميم',
+    resetDataWarning: 'إعادة ضبط البيانات والبدء من جديد',
 
     // SOS Help Now
     needHelpNowBtn: 'أحتاج مساعدة الآن',
@@ -174,9 +209,9 @@ export const translations = {
   },
 
   en: {
-    appName: 'Quit Smoking',
-    appSubname: 'كيف تترك التدخين',
-    tagline: 'Global platform for tobacco harm awareness and definitive cessation assistance',
+    appName: 'Smoking Is Harmful to Health',
+    appSubname: 'التدخين ضار بالصحة',
+    tagline: 'Global medical platform for tobacco harm awareness and definitive cessation assistance',
     
     // Nav & Tabs
     home: 'Home',
@@ -194,6 +229,11 @@ export const translations = {
     terms: 'Terms of Use',
     aboutApp: 'About Platform',
     settings: 'Settings',
+    digitalMagazine: 'Digital Magazine',
+    awarenessGallery: 'Awareness Art Gallery',
+    videoCenter: 'Video Cinema Center',
+    quitChallenge: '30-Day Quit Challenge',
+    sudaneseAdVoice: 'Motivational Voice Ad (Sudanese)',
 
     // SOS Help Now
     needHelpNowBtn: 'I Need Help Now',
@@ -316,9 +356,9 @@ export const translations = {
   },
 
   fr: {
-    appName: 'Arrêter de Fumer',
-    appSubname: 'Quit Smoking | كيف تترك التدخين',
-    tagline: 'Plateforme mondiale de sensibilisation aux méfaits du tabac et d’aide au sevrage',
+    appName: 'Le tabagisme est dangereux pour la santé',
+    appSubname: 'Smoking Is Harmful to Health | التدخين ضار بالصحة',
+    tagline: 'Plateforme médicale mondiale de sensibilisation aux méfaits du tabac et d’aide au sevrage',
     
     home: 'Accueil',
     smokingDamage: 'Dégâts du Tabac',
@@ -335,6 +375,11 @@ export const translations = {
     terms: 'Conditions d’Utilisation',
     aboutApp: 'À Propos',
     settings: 'Paramètres',
+    digitalMagazine: 'Magazine Numérique',
+    awarenessGallery: 'Galerie d’Art de Sensibilisation',
+    videoCenter: 'Centre Vidéo Cinéma',
+    quitChallenge: 'Défi 30 Jours Sans Tabac',
+    sudaneseAdVoice: 'Spot Audio Motivationnel (Soudanais)',
 
     needHelpNowBtn: 'J’ai besoin d’aide maintenant',
     needHelpNowTitle: 'Centre d’Assistance Immédiate',
